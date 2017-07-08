@@ -21,6 +21,21 @@ def index():
     return "hi"
 
 
+@app.route("/check_tattoo")
+def check():
+    """Checks tattoo against known tattoos."""
+
+    return render_template("check_tattoo.html")
+
+
+@app.route("/known_tattoo")
+def known():
+    """Uploads known tattoo and keywords to DB."""
+
+    return render_template("known_tattoo.html")
+
+
+
 ################################################################################
 
 if __name__ == "__main__":
