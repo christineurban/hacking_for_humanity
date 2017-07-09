@@ -23,10 +23,12 @@ watson_key = os.environ["WATSON_SECRET_KEY"]
 app = Flask(__name__)
 
 # For uploading images
-UPLOAD_FOLDER = 'static/images'
+UNKNOWN_TATTOOS = 'static/images/unknown_tattoos'
+USER_KNOWN_TATTOOS = 'static/images/user_known_tattoos'
 ALLOWED_EXTENSIONS = set(['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'])
 
-app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+app.config['UNKNOWN_TATTOOS'] = UNKNOWN_TATTOOS
+app.config['USER_KNOWN_TATTOOS'] = USER_KNOWN_TATTOOS
 
 # raise an error if variable is undefined
 app.jinja_env.undefined = StrictUndefined
@@ -47,34 +49,47 @@ def allowed_file(filename):
 
 @app.route('/process-form', methods=['POST'])
 def upload_file():
-    if request.method == 'POST':
-        # check if the post request has the file part
-        if 'image' not in request.files:
-            print request.files
-            print "doesn't have file"
-        file = request.files['image']
-        # if user does not select file, browser also
-        # submit a empty part without filename
-        if file.filename == '':
-            print "no selected file"
-        if file and allowed_file(file.filename):
-            print "file type allowed"
-            filename = secure_filename(file.filename)
-            file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-
-        # Get tattoo status (known or unknown)
-        tattoo_status = request.form.get("known-unknown")
-        if tattoo_status == 'known':
-            # Update tattoo database with image
+    # Get tattoo status (known or unknown)
+    tattoo_status = request.form.get("known-unknown")
+    if tattoo_status == 'known':
+        # Update tattoo database with image
+        if request.method == 'POST':
+            # check if the post request has the file part
+            if 'image' not in request.files:
+                print request.files
+                print "doesn't have file"
+            file = request.files['image']
+            # if user does not select file, browser also
+            # submit a empty part without filename
+            if file.filename == '':
+                print "no selected file"
+            if file and allowed_file(file.filename):
+                print "file type allowed"
+                filename = secure_filename(file.filename)
+                file.save(os.path.join(app.config['USER_KNOWN_TATTOOS'], filename))
             return render_template("known.html")
 
-        elif tattoo_status == 'unknown':
-            # Check tattoo for similarity
+    # Unknown tattoo status
+    else:
+        # Check tattoo for similarity
+        if request.method == 'POST':
+            # check if the post request has the file part
+            if 'image' not in request.files:
+                print request.files
+                print "doesn't have file"
+            file = request.files['image']
+            # if user does not select file, browser also
+            # submit a empty part without filename
+            if file.filename == '':
+                print "no selected file"
+            if file and allowed_file(file.filename):
+                print "file type allowed"
+                filename = secure_filename(file.filename)
+                file.save(os.path.join(app.config['UNKNOWN_TATTOOS'], filename))
+
             similarity = check_tattoo(filename)
             return render_template("unknown.html", 
                                     similarity=similarity)
-    else:
-        return render_template("index.html")
 
 def train_classifier():
 
@@ -113,7 +128,7 @@ def check_tattoo(filename):
 
     visual_recognition = VisualRecognitionV3(VisualRecognitionV3.latest_version, api_key=watson_key)
 
-    with open(join(dirname(__file__), 'barcode_test4.jpg'), 'rb') as image_file:
+    with open(join(dirname(__file__), filename), 'rb') as image_file:
         response = json.dumps(visual_recognition.classify(images_file=image_file, threshold=0, classifier_ids=['Tattoos_502109298']), indent=2)
 
         similarity = json.loads(response)
@@ -121,12 +136,12 @@ def check_tattoo(filename):
         print "********************************", similarity, "*************************"
 
         barcode_score = similarity['images'][0]['classifiers'][0]["classes"][0]['score']
+        print barcode_score
         crown_score = similarity['images'][0]['classifiers'][0]["classes"][1]['score']
+        print crown_score
 
         if barcode_score or crown_score >= .7:
             return {"score": barcode_score, "strength": "strong"}
-
-check_tattoo("barcode_test4.jpg")
 
 
 
