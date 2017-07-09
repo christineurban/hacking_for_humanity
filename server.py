@@ -95,7 +95,7 @@ def upload_file():
 
 @app.route("/send-text", methods=["POST"])
 def send_text_message():
-    """Send a text message to using the Twilio API to number provided by user."""
+    """Send a text message using the Twilio API to number provided by user."""
     
     phone_number = request.form.get("phone-number")    
     account_sid = os.environ["ACCOUNT_SID"]
