@@ -1,0 +1,32 @@
+
+{% extends "base.html" %}
+{% block title %}Resources{% endblock %}
+{% block head %}{% endblock %}
+{% block content %}
+<br>
+<br>
+<br>
+
+<div class="resources">
+    <p class="resource-intro">
+    If you're looking for help--for yourself or for someone you know who may be a
+    victim--we recommend the following resources:
+    </p>
+
+    <p><a href="https://polarisproject.org/recognize-signs">polarisproject.org/recognize-signs</a> Recognize the signs</p>
+    <p><a href="https://humantraffickinghotline.org/report-trafficking">humantraffickinghotline.org/report-trafficking</a> Report (via phone or web form)</p>
+    <p><a href="http://www.survivorsink.org/apply">survivorsink.org/apply</a> Tattoo removal for surviors</p>
+    <p><a href="http://sharedhope.org/join-the-cause/report-trafficking/">sharedhope.org/join-the-cause/report-trafficking/</a> More resources</p>
+</div>
+
+<p>
+If you would like us to send an anonymous text message offering help, please
+enter the phone number of the tattoed person below:
+
+    <form action="/send-text" method="POST">
+        <input type="number" id="phone" name="phone-number" placeholder="555-555-5555">
+        <br>
+        <input type="submit" value="Save">
+    </form>
+</p>
+{% endblock %}
