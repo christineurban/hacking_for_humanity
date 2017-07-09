@@ -8,12 +8,13 @@ from werkzeug.utils import secure_filename
 import json
 from os.path import join, dirname
 
+from twilio.rest import Client
+
 #Needed for Watson
 import json
 from os.path import join, dirname
 from os import environ
 from watson_developer_cloud import VisualRecognitionV3
-
 
 watson_key = os.environ["WATSON_SECRET_KEY"]
 
@@ -90,6 +91,25 @@ def upload_file():
             similarity = check_tattoo(filename)
             return render_template("unknown.html", 
                                     similarity=similarity)
+
+
+@app.route("/send-text", methods=["POST"])
+def send_text_message():
+    """Send a text message to using the Twilio API to number provided by user."""
+    
+    phone_number = request.form.get("phone-number")    
+    account_sid = os.environ["ACCOUNT_SID"]
+    auth_token = os.environ["AUTH_TOKEN"]    
+
+    client = Client(account_sid, auth_token)
+
+    message = client.messages.create(
+        to=phone_number,
+        from_="+19073121980",
+        body="""TEXT MESSAGE BODY HERE""")
+
+    print(message.sid)
+
 
 def train_classifier():
 
