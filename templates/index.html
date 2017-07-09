@@ -8,23 +8,22 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-6 col-lg-offset-3">
-                    <h1 class="script">Ink Screen</h1>
-                    <div class="btn-inverse"><a class="btn btn-lg animated fadeInUp delay btn-warning" href="https://mobirise.com/bootstrap-template/mobirise-free-template.zip">Unknown Tattoo</a> <a class="btn btn-lg btn-default animated fadeInUp delay" href="https://mobirise.com/bootstrap-template/">Known Tattoo</a></div>
+                    <p class="script" id="ink-logo">Ink Screen</p>
+                </div>
+                <div class="col-md-4 col-md-offset-4">
+                    <form action="/process-form" enctype="multipart/form-data" id="tattoo-file" method="POST">
+                        <input type="file" name="image" id="image" class="btn" required>&nbsp;&nbsp;
+                        <br>
+                        <input type="radio" name="known-unknown" value="known"> I know this is a tattoo associated with trafficking
+                        <br>
+                        <input type="radio" name="known-unknown" value="unknown"> I would like to check if this tattoo is associated with trafficking
+                        <br><br>
+                        <button type="submit" class="btn">Check Tattoo</button>
+                    </form>
                 </div>
             </div><!--/row -->
         </div> <!-- /container -->
     </div><!--/headerwrap -->
-
-
-
-    <p>See if your photo of a tattoo matches images of tattoos know to be assosciated with sex trafficking</p>
-    <form action="/process-form" enctype="multipart/form-data" id="tattoo-file" method="POST">
-        <label>Image**</label>
-        <input type="file" name="image" id="image" required>
-        <input type="radio" name="known-unknown" value="known"> I know this is a tattoo associated with trafficking
-        <input type="radio" name="known-unknown" value="unknown"> I would like to check if this tattoo is associated with trafficking
-        <input type="submit">
-    </form>
     
 {% endblock %}
 
