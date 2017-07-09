@@ -76,6 +76,23 @@ def upload_file():
     else:
         return render_template("index.html")
 
+def train_classifier():
+
+    visual_recognition = VisualRecognitionV3(VisualRecognitionV3.latest_version, api_key=watson_key)
+
+    with open(join(dirname(__file__), 'barcode_trainers.zip'), 'rb') as barcodes, \
+        open(join(dirname(__file__), 'crown_trainers.zip'), 'rb') as crowns :
+        print "Uploading files..."
+        print(json.dumps(visual_recognition.create_classifier('Tattoos', \
+            barcode_positive_examples=barcodes, \
+            crowns_positive_examples=crowns), indent=2))
+
+def get_trainer_status():
+    visual_recognition = VisualRecognitionV3(VisualRecognitionV3.latest_version, api_key=watson_key)
+
+    print(json.dumps(visual_recognition.get_classifier('Tattoos_502109298'), indent=2))
+# train_classifier()
+
 def check_tattoo(filename):
     """Checks image for similarity and renders appropriate advice."""
     # Mocked out due to time constraint
@@ -94,19 +111,14 @@ def check_tattoo(filename):
     #     similarity = .40
     #     return {"similarity": similarity, "strength": "medium"}
 
-    pass
-
-def train_classifier():
-
     visual_recognition = VisualRecognitionV3(VisualRecognitionV3.latest_version, api_key=watson_key)
 
-    with open(join(dirname(__file__), 'barcode_trainers.zip'), 'rb') as barcodes, \
-        open(join(dirname(__file__), 'crown_trainers.zip'), 'rb') as crowns :
-        print "Uploading files..."
-        print(json.dumps(visual_recognition.create_classifier('Tattoos', \
-            barcode_positive_examples=barcodes, \
-            crowns_positive_examples=crowns), indent=2))
-train_classifier()
+    with open(join(dirname(__file__), 'barcode_test4.jpg'), 'rb') as image_file:
+        similarity_response = json.dumps(visual_recognition.classify(images_file=image_file, threshold=0, classifier_ids=['Tattoos_502109298']), indent=2)
+
+        print similarity_response
+
+
 
 
 ################################################################################
