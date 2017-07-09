@@ -4,18 +4,15 @@
 
 {% block content %}
     <h1>Ink Spills</h1>
-    <a href="./check.html"><button>Check Tattoo</button></a>
+    <br>
     <p>See if your photo of a tattoo matches images of tattoos know to be assosciated with sex trafficking</p>
     <form action="/process-form" enctype="multipart/form-data" id="tattoo-file" method="POST">
         <label>Image**</label>
         <input type="file" name="image" id="image" required>
-        <input type="radio" name="known-unknown" value="known">I know this is a tattoo associated with trafficking
-        <input type="radio" name="known-unknown" value="unknown">I would like to check if this tattoo is associated with trafficking
+        <input type="radio" name="known-unknown" value="known"> I know this is a tattoo associated with trafficking
+        <input type="radio" name="known-unknown" value="unknown"> I would like to check if this tattoo is associated with trafficking
         <input type="submit">
     </form>
-    <br><br>
-
-    <button>Add Tattoo</button>
-    <p>Upload an image of a know sex trafficking tattoo to add it to this database</p>
+    
 {% endblock %}
 
