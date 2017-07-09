@@ -247,3 +247,23 @@ h1, h2, h3, h4, h5, h6 {
 .gallery img:hover {
     opacity: 0.4;
 }
+
+
+/*========================
+Results styles
+==========================*/
+
+.result-title {
+    padding-top: 70px;
+    padding-bottom: 50px;
+}
+
+.resources {
+    padding: 50px;
+}
+.resource-intro {
+    padding-bottom: 20px;
+}
+.thank-you {
+    padding-top: 100px;
+}
