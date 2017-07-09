@@ -36,7 +36,8 @@ def allowed_file(filename):
     return '.' in filename and \
            filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
-@app.route('/check-tattoo', methods=['POST'])
+
+@app.route('/process-form', methods=['POST'])
 def upload_file():
     if request.method == 'POST':
         # check if the post request has the file part
@@ -52,16 +53,40 @@ def upload_file():
             print "file type allowed"
             filename = secure_filename(file.filename)
             file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-            if filename == 'barcode6.jpeg':
-                return render_template("checked-yes.html")
+
+        # Get tattoo status (known or unknown)
+        tattoo_status = request.form.get("known-unknown")
+        if tattoo_status == 'known':
+            # Update tattoo database with image
+            pass
+        elif tattoo_status == 'unknown':
+            # Check tattoo for similarity
+            similarity = check_tattoo(filename)
+            return render_template("checked-yes.html", 
+                                    similarity=similarity)
 
     else:
-        return "Method not allowed"
+        return render_template("index.html")
 
-# def check_tattoo(filename):
-#     """Checks image for similarity and renders appropriate advice."""
-#     if filename == 'barcode6.jpeg':
-#         return render_template("checked-yes.html")
+def check_tattoo(filename):
+    """Checks image for similarity and renders appropriate advice."""
+    # Mocked out due to time constraint
+
+    # Match for known trafficking tattoo
+    if filename == 'barcode6.jpeg':
+        similarity = .70
+        return similarity
+    # TODO find image for non-match
+    if filename == '':
+        similarity = .06
+        return similarity
+
+    # TODO find image for kinda similar
+    if filename == '':
+        similarity = .40
+        return similarity
+
+
 
 
 
