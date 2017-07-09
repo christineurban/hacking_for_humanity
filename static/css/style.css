@@ -24,6 +24,10 @@ h2 {
   z-index: 1;
 }
 
+.script {
+    font-family: 'Parisienne', cursive;
+}
+
 /* ==========================================================================
    Base Styles, Bootstrap Modifications & Fonts Import
    ========================================================================== */
