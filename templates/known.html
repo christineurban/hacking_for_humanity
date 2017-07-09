@@ -1,0 +1,29 @@
+
+{% extends "base.html" %}
+{% block title %}Image Added{% endblock %}
+{% block head %}{% endblock %}
+{% block content %}
+<p>
+Thank you for submiting your photo to our database.
+
+<p>
+If you're looking for help--for yourself or for someone you know who may be a
+victim--we recommend the following resources:
+</p>
+<ul>
+    <li>
+    <li>
+    <li>
+</ul>
+
+<p>
+If you would like us to send an anonymous text message offering help, please
+enter the phone number of the tattoed person below:
+
+    <form action="/send-text" method="POST">
+        <input type="number" id="phone" name="phone-number" placeholder="555-555-5555">
+        <br>
+        <input type="submit" value="Save">
+    </form>
+</p>
+{% endblock %}
