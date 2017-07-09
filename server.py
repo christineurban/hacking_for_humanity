@@ -8,9 +8,13 @@ import VisualRecognitionV3 as VisualRecognition
 
 watson_key = os.environ["WATSON_SECRET_KEY"]
 
-visual_recognition = VisualRecognition(api_key=watson_key)
-
 import os           # Access OS environment variables
+
+import json
+from os.path import join, dirname
+from watson_developer_cloud import VisualRecognitionV3
+
+visual_recognition = VisualRecognitionV3('2016-05-20', api_key=watson_key)
 
 app = Flask(__name__)
 
