@@ -1,0 +1,11 @@
+.centered {
+    text-align: center;
+    padding-top: 120px;
+}
+
+button {
+    border-radius: 5px;
+    background-color: #d6d6d6;
+    margin: 30px;
+    margin-top: 50px;
+}
