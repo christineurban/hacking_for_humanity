@@ -3,6 +3,13 @@ from flask import (Flask, render_template, redirect, request,
 
 from jinja2 import StrictUndefined
 
+import line to: from /usr/local/lib/python2.7/dist-packages/watson_developer_cloud 
+import VisualRecognitionV3 as VisualRecognition
+
+watson_key = os.environ["WATSON_SECRET_KEY"]
+
+visual_recognition = VisualRecognition(api_key=watson_key)
+
 import os           # Access OS environment variables
 
 app = Flask(__name__)
