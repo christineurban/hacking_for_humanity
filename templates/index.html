@@ -12,8 +12,13 @@
             <h1>Ink Spills</h1>
             <a href="./check.html"><button>Check Tattoo</button></a>
             <p>See if your photo of a tattoo matches images of tattoos know to be assosciated with sex trafficking</p>
-            <label>Image**</label>
-            <input type="file" name="image" id="image" required><br><br>
+            <form action="/check-tattoo" enctype="multipart/form-data" id="tattoo-file" method="POST">
+                <label>Image**</label>
+                <input type="file" name="image" id="image" required>
+                <input type="submit">
+            </form>
+            <br><br>
+
             <button>Add Tattoo</button>
             <p>Upload an image of a know sex trafficking tattoo to add it to this database</p>
         </div>

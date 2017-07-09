@@ -14,14 +14,14 @@ from os.path import join, dirname
 
 app = Flask(__name__)
 
-# raise an error if variable is undefined
-app.jinja_env.undefined = StrictUndefined
-
 # For uploading images
-UPLOAD_FOLDER = '/static/images'
+UPLOAD_FOLDER = 'static/images'
 ALLOWED_EXTENSIONS = set(['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'])
 
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+
+# raise an error if variable is undefined
+app.jinja_env.undefined = StrictUndefined
 
 ################################################################################
 # Pages
@@ -40,21 +40,27 @@ def allowed_file(filename):
 def upload_file():
     if request.method == 'POST':
         # check if the post request has the file part
-        if 'file' not in request.files:
-            flash('No file part')
-            return redirect(request.url)
-        file = request.files['file']
+        if 'image' not in request.files:
+            print request.files
+            print "doesn't have file"
+        file = request.files['image']
         # if user does not select file, browser also
         # submit a empty part without filename
         if file.filename == '':
-            flash('No selected file')
-            return redirect(request.url)
+            print "no selected file"
         if file and allowed_file(file.filename):
+            print "file type allowed"
             filename = secure_filename(file.filename)
             file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-            check_tattoo(filename)
+            # check_tattoo(filename)
 
-    return filename
+    else:
+        return "Method not allowed"
+
+def check_tattoo(filename):
+    """Checks image for similarity and renders appropriate advice."""
+    if filename == 'barcode6.jpeg':
+        return render_template("checked-yes.html")
 
 
 
@@ -62,7 +68,7 @@ def upload_file():
 
 if __name__ == "__main__":
     
-    # app.debug = True # for DebugToolbarExtension
+    app.debug = True # for DebugToolbarExtension
     app.jinja_env.auto_reload = app.debug  # make sure templates, etc. are not cached in debug mode
 
     app.run(port=5000, host='0.0.0.0')
