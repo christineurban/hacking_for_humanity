@@ -58,13 +58,12 @@ def upload_file():
         tattoo_status = request.form.get("known-unknown")
         if tattoo_status == 'known':
             # Update tattoo database with image
-            pass
+            return render_template("known-resources.html")
         elif tattoo_status == 'unknown':
             # Check tattoo for similarity
             similarity = check_tattoo(filename)
             return render_template("checked-yes.html", 
                                     similarity=similarity)
-
     else:
         return render_template("index.html")
 
@@ -85,8 +84,6 @@ def check_tattoo(filename):
     if filename == '':
         similarity = .40
         return similarity
-
-
 
 
 
