@@ -164,6 +164,11 @@ def check_tattoo(filename):
 
         if barcode_score or crown_score >= .7:
             return {"score": barcode_score, "strength": "strong"}
+        elif barcode_score or crown_score >= .3:
+            return {"score": barcode_score, "strength": "medium"}
+        elif barcode_score or crown_score >= .0:
+            return {"score": barcode_score, "strength": "low"}
+
 
 
 
