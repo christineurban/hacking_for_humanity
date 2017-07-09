@@ -7,7 +7,15 @@ import os           # Access OS environment variables
 from werkzeug.utils import secure_filename
 import json
 from os.path import join, dirname
-# watson_key = os.environ["WATSON_SECRET_KEY"]
+
+#Needed for Watson
+import json
+from os.path import join, dirname
+from os import environ
+from watson_developer_cloud import VisualRecognitionV3
+
+
+watson_key = os.environ["WATSON_SECRET_KEY"]
 
 # from watson_developer_cloud import VisualRecognitionV3
 # visual_recognition = VisualRecognitionV3('2016-05-20', api_key=watson_key)
@@ -59,7 +67,7 @@ def upload_file():
         if tattoo_status == 'known':
             # Update tattoo database with image
             return render_template("known.html")
-            
+
         elif tattoo_status == 'unknown':
             # Check tattoo for similarity
             similarity = check_tattoo(filename)
@@ -72,20 +80,33 @@ def check_tattoo(filename):
     """Checks image for similarity and renders appropriate advice."""
     # Mocked out due to time constraint
 
-    # Match for known trafficking tattoo
-    if filename == 'barcode6.jpeg':
-        similarity = .70
-        return {"similarity": similarity, "strength": "strong"}
-    # TODO find image for non-match
-    if filename == '':
-        similarity = .06
-        return {"similarity": similarity, "strength": "low"}
+    # # Match for known trafficking tattoo
+    # if filename == 'barcode6.jpeg':
+    #     similarity = .70
+    #     return {"similarity": similarity, "strength": "strong"}
+    # # TODO find image for non-match
+    # if filename == '':
+    #     similarity = .06
+    #     return {"similarity": similarity, "strength": "low"}
 
-    # TODO find image for kinda similar
-    if filename == '':
-        similarity = .40
-        return {"similarity": similarity, "strength": "medium"}
+    # # TODO find image for kinda similar
+    # if filename == '':
+    #     similarity = .40
+    #     return {"similarity": similarity, "strength": "medium"}
 
+    pass
+
+def train_classifier():
+
+    visual_recognition = VisualRecognitionV3(VisualRecognitionV3.latest_version, api_key=watson_key)
+
+    with open(join(dirname(__file__), 'barcode_trainers.zip'), 'rb') as barcodes, \
+        open(join(dirname(__file__), 'crown_trainers.zip'), 'rb') as crowns :
+        print "Uploading files..."
+        print(json.dumps(visual_recognition.create_classifier('Tattoos', \
+            barcode_positive_examples=barcodes, \
+            crowns_positive_examples=crowns), indent=2))
+train_classifier()
 
 
 ################################################################################
