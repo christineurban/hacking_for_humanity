@@ -106,9 +106,11 @@ def send_text_message():
     message = client.messages.create(
         to=phone_number,
         from_="+19073121980",
-        body="""TEXT MESSAGE BODY HERE""")
+        body="""If you need help, call 1-888-373-7888.""")
 
     print(message.sid)
+
+    return "Your message has been sent."
 
 
 def train_classifier():
