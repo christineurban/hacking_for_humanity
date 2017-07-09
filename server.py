@@ -52,15 +52,16 @@ def upload_file():
             print "file type allowed"
             filename = secure_filename(file.filename)
             file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-            # check_tattoo(filename)
+            if filename == 'barcode6.jpeg':
+                return render_template("checked-yes.html")
 
     else:
         return "Method not allowed"
 
-def check_tattoo(filename):
-    """Checks image for similarity and renders appropriate advice."""
-    if filename == 'barcode6.jpeg':
-        return render_template("checked-yes.html")
+# def check_tattoo(filename):
+#     """Checks image for similarity and renders appropriate advice."""
+#     if filename == 'barcode6.jpeg':
+#         return render_template("checked-yes.html")
 
 
 
