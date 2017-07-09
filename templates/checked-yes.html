@@ -1,0 +1,20 @@
+
+{% extends "base.html" %}
+{% block title %}Image Added{% endblock %}
+{% block head %}{% endblock %}
+{% block content %}
+
+The tattoo you've submitted is a strong match. We've added your image to our
+database to continue improving the accuracy of our results.
+
+If this tattoo belongs to you or someone you know
+
+
+If you would like us to send an anonymous text message offering help, please
+enter the phone number of the tattoed person below:
+    <form action="/send-text" method="POST">
+        <input type="number" id="phone" name="phone-number" placeholder="555-555-5555">
+        <input type="submit" value="Save">
+    </form>
+
+{% endblock %}
