@@ -114,9 +114,19 @@ def check_tattoo(filename):
     visual_recognition = VisualRecognitionV3(VisualRecognitionV3.latest_version, api_key=watson_key)
 
     with open(join(dirname(__file__), 'barcode_test4.jpg'), 'rb') as image_file:
-        similarity_response = json.dumps(visual_recognition.classify(images_file=image_file, threshold=0, classifier_ids=['Tattoos_502109298']), indent=2)
+        response = json.dumps(visual_recognition.classify(images_file=image_file, threshold=0, classifier_ids=['Tattoos_502109298']), indent=2)
 
-        print similarity_response
+        similarity = json.loads(response)
+
+        print "********************************", similarity, "*************************"
+
+        barcode_score = similarity['images'][0]['classifiers'][0]["classes"][0]['score']
+        crown_score = similarity['images'][0]['classifiers'][0]["classes"][1]['score']
+
+        if barcode_score or crown_score >= .7:
+            return {"score": barcode_score, "strength": "strong"}
+
+check_tattoo("barcode_test4.jpg")
 
 
 
