@@ -1,11 +1,39 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{% block title %}TITLE HERE{% endblock %}</title>
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="../static/css/style.css">
 </head>
 <body>
+
+<!-- Static navbar -->
+    <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="index.html">INSTANT</a>
+        </div>
+        <div class="navbar-collapse collapse">
+          <ul class="nav navbar-nav navbar-right">
+            <li class="active"><a href="index.html">Home</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="#works">Works</a></li>
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </div>
+
+
 <div id="google_translate_element"></div>
 <script type="text/javascript">
     function googleTranslateElementInit() {
@@ -14,7 +42,7 @@
 </script>
 <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 
-<div class="container contaier-fluid">
+<div class="container-fluid">
     <div class="row">
         <div class="col-md-12 centered">
             {% block content %}CONTENT HERE{% endblock %}
@@ -22,9 +50,28 @@
     </div>
 </div>
 
+<div id="footerwrap">
+    <div class="container">
+        <div class="row centered">       
+            <div class="col-xs-12">
+                <p>&copy; <script>document.write(new Date().getFullYear())</script>
+                <a href="http://amelia.green" target="_blank">Amelia Green</a>, 
+                <a href="http://katrinahumberjuma.tech" target="_blank">Katrina Huber_Juma</a>, 
+                <a href="https://www.linkedin.com/in/amberstaab" target="_blank">Amber Staab</a>, and 
+                <a href="http://www.christineurban.net" target="_blank">Christine Urban</a>. 
+                All rights reserved.
+                </p>
+            </div>
+        </div>
+    </div>
+</div><!--/footerwrap -->
 
 
 
+<script
+  src="https://code.jquery.com/jquery-2.2.4.js"
+  integrity="sha256-iT6Q9iMJYuQiMWNd9lDyBUStIq/8PuOW33aOqmvFpqI="
+  crossorigin="anonymous"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 </body>
 </html>

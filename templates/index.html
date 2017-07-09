@@ -1,10 +1,23 @@
 {% extends 'base.html' %}
 
-{% block title %} title? {% endblock %}
+{% block title %}Ink Screen{% endblock %}
 
 {% block content %}
-    <h1>Ink Spills</h1>
-    <br>
+
+    <div id="headerwrap">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6 col-lg-offset-3">
+                    <h4></h4>
+                    <h1>INK SCREEN</h1>
+                    <div class="btn-inverse"><a class="btn btn-lg animated fadeInUp delay btn-warning" href="https://mobirise.com/bootstrap-template/mobirise-free-template.zip">Unknown Tattoo</a> <a class="btn btn-lg btn-default animated fadeInUp delay" href="https://mobirise.com/bootstrap-template/">Known Tattoo</a></div>
+                </div>
+            </div><!--/row -->
+        </div> <!-- /container -->
+    </div><!--/headerwrap -->
+
+
+
     <p>See if your photo of a tattoo matches images of tattoos know to be assosciated with sex trafficking</p>
     <form action="/process-form" enctype="multipart/form-data" id="tattoo-file" method="POST">
         <label>Image**</label>
