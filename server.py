@@ -161,15 +161,13 @@ def check_tattoo(filename):
         print barcode_score
         crown_score = similarity['images'][0]['classifiers'][0]["classes"][1]['score']
         print crown_score
-
+        max_score = max(barcode_score, crown_score)
         if barcode_score or crown_score >= .7:
-            return {"score": barcode_score, "strength": "strong"}
+            return {"score": max_score, "strength": "strong"}
         elif barcode_score or crown_score >= .3:
-            return {"score": barcode_score, "strength": "medium"}
+            return {"score": max_score, "strength": "medium"}
         elif barcode_score or crown_score >= .0:
-            return {"score": barcode_score, "strength": "low"}
-
-
+            return {"score": max_score, "strength": "low"}
 
 
 
