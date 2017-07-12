@@ -6,7 +6,7 @@ Sex traffickers have the arrogance to brand people as property. We can use that 
 
 We provide links to resources help users recognize the signs, and report sex trafficking, as well as a resource for survivors to cover or remove unwanted tattoos. Our app also has the option to anonymously text a possible victim, encouraging them to call the National Human Trafficking  Hotline for help.
 
-![Landing page](/static/images/llandingPg.png)
+![Landing page](/static/images/landingPg.png)
 
 
 ## Tech Stack
